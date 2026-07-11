@@ -1,0 +1,9 @@
+# Files stow must never symlink into a target (regex, per path segment).
+# NOTE: whole-directory packages (e.g. nvim/.config/nvim) get folded into a
+# single directory symlink, so these mainly guard repo meta files.
+\.git
+\.gitignore
+\.stow-global-ignore
+README.*
+Makefile
+LICENSE

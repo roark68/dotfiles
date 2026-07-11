@@ -1,0 +1,5 @@
+require("config.functions")
+require("config.options")
+require("config.ime")
+require("config.keymaps")
+require("config.pack")
