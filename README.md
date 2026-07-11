@@ -9,6 +9,13 @@ Location: `~/mantu/dotfiles` (WSL).
 dotfiles/
 ├── nvim/                     # STOW package, target: $HOME
 │   └── .config/nvim/         # -> symlinked to ~/.config/nvim
+├── tmux/
+│   └── .tmux.conf            # -> ~/.tmux.conf
+├── zsh/
+│   ├── .zshrc                # -> ~/.zshrc
+│   └── .zshenv               # -> ~/.zshenv
+├── starship/
+│   └── .config/starship.toml # -> ~/.config/starship.toml
 └── wezterm/                  # plain storage (NOT stowed)
     └── .wezterm.lua          # copied to /mnt/c/Users/npham_mantu/.wezterm.lua
 ```
@@ -23,12 +30,12 @@ dotfiles/
 ## Usage
 
 ```sh
-make install      # install everything (stow nvim + copy wezterm)
-make nvim         # stow nvim -> ~/.config/nvim (symlink)
+make install      # install everything (stow nvim/tmux/zsh/starship + copy wezterm)
+make nvim         # stow one package (also: tmux, zsh, starship)
 make wezterm      # copy wezterm config -> Windows home
-make restow       # re-link nvim (fixes drifted/renamed links)
-make uninstall    # remove the nvim symlink
-make install DRYRUN=1   # preview the nvim stow step
+make restow       # re-link all $HOME packages (fixes drifted/renamed links)
+make uninstall    # remove all $HOME symlinks
+make install DRYRUN=1   # preview the stow steps
 ```
 
 ## Adding a new stow package
