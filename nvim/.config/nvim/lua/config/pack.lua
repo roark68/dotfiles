@@ -24,6 +24,8 @@ local pack_specs = {
   { src = "https://github.com/mrcjkb/rustaceanvim",                      version = vim.version.range("^9") },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/GustavEikaas/easy-dotnet.nvim" },
+  { src = "https://github.com/mfussenegger/nvim-dap" },
+  { src = "https://github.com/rcarriga/nvim-dap-ui" },
   { src = "https://github.com/akinsho/toggleterm.nvim" },
   { src = "https://github.com/rcarriga/nvim-notify" },
   { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
@@ -85,6 +87,7 @@ safe_require("plugins.arrow")
 safe_require("plugins.blink")
 safe_require("plugins.diagnostic")
 safe_require("plugins.dotnet")
+safe_require("plugins.dap")
 safe_require("plugins.toggleterm")
 safe_require("plugins.notify")
 safe_require("plugins.indent")

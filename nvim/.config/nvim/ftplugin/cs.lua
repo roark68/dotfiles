@@ -6,6 +6,7 @@ map("n", "<leader>dd", "<cmd>Dotnet<cr>", "Dotnet picker")
 map("n", "<leader>db", "<cmd>Dotnet build<cr>", "Dotnet build")
 map("n", "<leader>dt", "<cmd>Dotnet test<cr>", "Dotnet test")
 map("n", "<leader>dr", "<cmd>Dotnet run<cr>", "Dotnet run")
+map("n", "<leader>dg", "<cmd>Dotnet debug profile<cr>", "Dotnet debug (pick profile)")
 map("n", "<leader>dn", function()
   local ok, dotnet = pcall(require, "easy-dotnet")
   if not ok then
