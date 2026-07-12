@@ -74,19 +74,16 @@ alias oife='cd ~/mantu/IMP-Frontend/src/app/'
 # Token watch
 alias twud='token-watch use dev'
 alias twui='token-watch use inte'
-alias twuq='token-watch use inte'
+alias twuq='token-watch use qa'
 alias tws='token-watch status'
 alias twr='token-watch refresh'
 alias tww='token-watch watch'
 
 alias cl='claude'
 
-# Local secrets (untracked, NOT in dotfiles): defines DEEPSEEK_API_KEY etc.
-[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
-
 ds() {
   ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic \
-  ANTHROPIC_AUTH_TOKEN="$DEEPSEEK_API_KEY" \
+  ANTHROPIC_AUTH_TOKEN="$(pass show agent/deepseek)" \
   ANTHROPIC_MODEL=deepseek-v4-pro \
   claude "$@"
 }

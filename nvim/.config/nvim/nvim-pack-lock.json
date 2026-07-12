@@ -5,7 +5,7 @@
       "src": "https://github.com/otavioschwanck/arrow.nvim"
     },
     "blink.cmp": {
-      "rev": "71dc7545c1f399c7f76eeef80efa1d8bda0ff471",
+      "rev": "cfe100ccac24b0a622d7b9f04aa8c9f3e7624a16",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
@@ -89,11 +89,11 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
-      "rev": "dad71387de386a946b123079d0e53f23028f3abd",
+      "rev": "09d1324e264c6950262dbe02a9bce2933a6800db",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "obsidian.nvim": {
-      "rev": "7687c7e62c3e12617d9eea6401e9e1f190e2ccab",
+      "rev": "c87a43286bc19dca5362be39c5fb5c8e7c59aed1",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
     "oil.nvim": {
