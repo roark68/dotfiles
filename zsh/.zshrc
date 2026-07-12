@@ -78,6 +78,7 @@ alias twuq='token-watch use qa'
 alias tws='token-watch status'
 alias twr='token-watch refresh'
 alias tww='token-watch watch'
+alias twg='token-watch generate'
 
 alias cl='claude'
 
