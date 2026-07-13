@@ -66,10 +66,14 @@ alias wz="nvim /mnt/c/Users/npham_mantu/.wezterm.lua"
 alias gn="gitnexus analyze --index-only --drop-embeddings"
 alias mt="node ~/mantu/hackathon/scripts/get-token.mjs"
 
+# Mantu repos
 alias ow='cd ~/mantu'
 alias onfe='cd ~/mantu/Needs-Frontend/src/app/'
+alias onbe='cd ~/mantu/Needs'
 alias ocfe='cd ~/mantu/Candidates-Frontend/src/app/'
+alias ocbe='cd ~/mantu/Candidates/'
 alias oife='cd ~/mantu/IMP-Frontend/src/app/'
+alias ojbe='cd ~/mantu/JobOffers/'
 
 # Token watch
 alias twud='token-watch use dev'
@@ -93,3 +97,6 @@ ds() {
 # CApath dir because update-ca-trust only exports CA certs) + launcher scripts
 export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:$HOME/.local/share/mantu-ca:/etc/ssl/certs"
 export PATH="$HOME/mantu/Obsidian/Scripts:$PATH"
+
+# git
+alias noskip='git ls-files -v | grep '^S' | cut -c3- | tr '\n' '\0' | xargs -0 git update-index --no-skip-worktree'

@@ -5,8 +5,9 @@
       "src": "https://github.com/otavioschwanck/arrow.nvim"
     },
     "blink.cmp": {
-      "rev": "cfe100ccac24b0a622d7b9f04aa8c9f3e7624a16",
-      "src": "https://github.com/saghen/blink.cmp"
+      "rev": "f187527fe5efc7651cd84508de5880d8c479245f",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "1.0.0 - 2.0.0"
     },
     "blink.lib": {
       "rev": "5876dd95deeb70aadbe9f1c0b7117a135061cdac",
@@ -53,7 +54,7 @@
       "src": "https://github.com/iamcco/markdown-preview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "47059d71b42d74b0a1e9f61c1d99d301039c3b5b",
+      "rev": "a4068c3ebd4cb335b25239e5ea35c22ee6007962",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -61,7 +62,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "4171fba613b64ade9a28e198bd5b4fea5ba45e22",
+      "rev": "fc5c7167adc51d5f39219e86739d5c193b777f44",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nui.nvim": {
@@ -81,7 +82,7 @@
       "src": "https://github.com/theHamsta/nvim-dap-virtual-text"
     },
     "nvim-lspconfig": {
-      "rev": "5955a100ae7155962330643924e21a798b9bdc91",
+      "rev": "d5b6e3db4c17b0146f63a2fc47e2027a754b2cb1",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -105,7 +106,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "obsidian.nvim": {
-      "rev": "c87a43286bc19dca5362be39c5fb5c8e7c59aed1",
+      "rev": "bf1616d46e72477ad978051363fdb5c839c1cce5",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
     "oil.nvim": {

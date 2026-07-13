@@ -18,7 +18,7 @@ local pack_specs = {
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/kkharji/sqlite.lua" },
   { src = "https://github.com/gbprod/yanky.nvim" },
-  { src = "https://github.com/saghen/blink.cmp" },
+  { src = "https://github.com/saghen/blink.cmp",                        version = vim.version.range("^1") },
   { src = "https://github.com/saghen/blink.lib" },
   { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
   { src = "https://github.com/mrcjkb/rustaceanvim",                      version = vim.version.range("^9") },
