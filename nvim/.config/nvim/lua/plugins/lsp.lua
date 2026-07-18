@@ -66,6 +66,19 @@ local servers = {
   vue_ls = {
     root_markers = vue_root_markers,
   },
+  yamlls = {
+    settings = {
+      yaml = {
+        schemaStore = {
+          enable = true,
+          url = "https://www.schemastore.org/api/json/catalog.json",
+        },
+        validate = true,
+        -- conform/prettier already formats yaml
+        format = { enable = false },
+      },
+    },
+  },
   lua_ls = {
     settings = {
       Lua = {

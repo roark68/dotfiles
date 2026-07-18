@@ -29,6 +29,9 @@ keymap.set("n", "n", "nzzzv")
 keymap.set("n", "N", "Nzzzv")
 keymap.set("n", "<ESC>", "<cmd>nohl<cr>", opts)
 
+-- Checktime
+keymap.set("n", "''", ":checktime<CR>", opts)
+
 -- Do not yank when x/X & p/P
 keymap.set("n", "x", '"_x')
 keymap.set("n", "X", '"_X')
