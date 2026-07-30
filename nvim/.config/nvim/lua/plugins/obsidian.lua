@@ -7,7 +7,7 @@ end
 local workspaces = {
   {
     name = "mantu",
-    path = vim.fn.expand("~/mantu/Obsidian"),
+    path = vim.fn.expand("~/mantu/Obsidian/"),
   },
 }
 

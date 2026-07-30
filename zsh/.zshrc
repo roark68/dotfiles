@@ -31,6 +31,9 @@ export NVM_DIR="$HOME/.nvm"
 export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$HOME/.dotnet:$HOME/.dotnet/tools
 export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:/etc/ssl/certs"
+# Post-build swagger/NSwag targets boot the app; without this they default to
+# Production and fail on the "Replaced_in_CD" GroupDocs license placeholder.
+export ASPNETCORE_ENVIRONMENT=Development
 
 # ==== Rust ====
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -100,3 +103,11 @@ export PATH="$HOME/mantu/Obsidian/Scripts:$PATH"
 
 # git
 alias noskip='git ls-files -v | grep '^S' | cut -c3- | tr '\n' '\0' | xargs -0 git update-index --no-skip-worktree'
+
+# pnpm
+export PNPM_HOME="/home/npham_mantu/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end

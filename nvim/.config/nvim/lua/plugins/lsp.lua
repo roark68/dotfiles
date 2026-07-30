@@ -13,6 +13,7 @@ if vim.uv.fs_stat(vue_plugin_location) then
 end
 
 local servers = {
+  bashls = {},
   clangd = {},
   vtsls = {
     filetypes = {

@@ -1,0 +1,106 @@
+onboarding = false
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[ui.toast]
+delivery = "system"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+# WSL mặc định ("auto") sẽ vẽ con trỏ của herdr -> luôn là block, nvim insert mode
+# không đổi được sang bar. Dùng con trỏ thật của WezTerm để DECSCUSR có tác dụng.
+host_cursor = "native"
+
+agent_panel_sort = "spaces"
+[experimental]
+switch_ascii_input_source_in_prefix = true
+pane_history = false
+
+# Keybindings mirroring ~/.tmux.conf (roark/dotfiles).
+# Mapping: tmux window -> herdr tab, tmux session -> herdr workspace.
+[keys]
+# Prefix stays ctrl+b: herdr has no send-prefix action, so a backtick prefix
+# would swallow literal backticks typed inside a pane.
+prefix = "`"
+
+# --- session / app --------------------------------------------------------
+help = "prefix+?"                     # tmux: prefix+? list-keys
+reload_config = "prefix+q"            # tmux: bind q source-file ~/.tmux.conf
+detach = "prefix+d"                   # tmux: prefix+d detach-client
+settings = "prefix+shift+s"           # no tmux equivalent (moved off prefix+s)
+copy_mode = "prefix+["                # tmux: prefix+[ copy-mode
+toggle_sidebar = "prefix+b"
+edit_scrollback = "prefix+e"
+goto = "prefix+g"
+
+# --- workspaces (= tmux sessions) ----------------------------------------
+workspace_picker = "prefix+s"          # tmux: prefix+s choose-session
+new_workspace = "prefix+shift+c"       # tmux: bind C new-session
+rename_workspace = "prefix+shift+r"    # tmux: bind R rename-session
+previous_workspace = "prefix+shift+p"  # tmux: bind P switch-client -p
+next_workspace = "prefix+shift+n"      # tmux: bind N switch-client -n
+close_workspace = "prefix+shift+d"
+new_worktree = "prefix+shift+g"
+
+# --- tabs (= tmux windows) -----------------------------------------------
+new_tab = "prefix+c"                   # tmux: bind c new-window
+rename_tab = "prefix+r"                # tmux: bind r rename-window
+previous_tab = "prefix+p"              # tmux: prefix+p previous-window
+next_tab = "prefix+n"                  # tmux: prefix+n next-window
+switch_tab = "prefix+1..9"             # tmux: base-index 1
+close_tab = "prefix+ampersand"         # tmux: prefix+& kill-window
+
+# --- panes ----------------------------------------------------------------
+split_vertical = "prefix+backslash"    # tmux: bind '\' split-window -h
+split_horizontal = "prefix+minus"      # tmux: bind - split-window -v
+close_pane = "prefix+x"                # tmux: prefix+x kill-pane
+zoom = "prefix+m"                      # tmux: bind -r m resize-pane -Z
+rename_pane = "prefix+comma"
+last_pane = "prefix+semicolon"         # tmux: prefix+; last-pane
+cycle_pane_next = "prefix+tab"
+cycle_pane_previous = "prefix+shift+tab"
+
+# vim-tmux-navigator parity: ctrl+hjkl moves focus without the prefix.
+focus_pane_left = "ctrl+h"
+focus_pane_down = "ctrl+j"
+focus_pane_up = "ctrl+k"
+focus_pane_right = "ctrl+l"
+
+# tmux used repeatable prefix+hjkl to resize; herdr uses a resize mode instead.
+resize_mode = "prefix+i"
+
+# --- navigate mode (prefix+s / prefix+g) ----------------------------------
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+navigate_pane_up = "ctrl+k"
+navigate_pane_down = "ctrl+j"
+navigate_pane_left = "h"
+navigate_pane_right = "l"
+
+# --- custom commands ------------------------------------------------------
+# tmux: bind -r o split-window -h "nvim ~/mantu/Obsidian/Journal/$(date ...).md"
+[[keys.command]]
+key = "prefix+o"
+type = "pane"
+command = 'zsh -lc "nvim ~/mantu/Obsidian/Journal/$(date +%Y-%m-%d).md"'
+
+# tmux: bind -r v split-window -h -c "#{pane_current_path}" "zsh -c 'nvim; exec zsh'"
+[[keys.command]]
+key = "prefix+v"
+type = "pane"
+command = "zsh -c 'nvim; exec zsh'"
+
+# tally plugin panes. type = "shell": the plugin action opens/closes the pane
+# itself, so this only needs to fire the invoke and exit. Absolute path because a
+# detached shell command does not necessarily get ~/.local/bin on PATH.
+[[keys.command]]
+key = "prefix+t"
+type = "shell"
+command = "/home/npham_mantu/.local/bin/herdr plugin action invoke tally.toggle-todos"
+
+[[keys.command]]
+key = "prefix+shift+t"
+type = "shell"
+command = "/home/npham_mantu/.local/bin/herdr plugin action invoke tally.toggle-scratchpads"
