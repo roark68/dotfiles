@@ -50,21 +50,21 @@ vim.opt.signcolumn = "yes"
 -- Highlight the current line, except while typing
 vim.opt.cursorline = true
 
-local cursorline_group = vim.api.nvim_create_augroup("CursorLineOnlyOutsideInsert", { clear = true })
+-- local cursorline_group = vim.api.nvim_create_augroup("CursorLineOnlyOutsideInsert", { clear = true })
 
-vim.api.nvim_create_autocmd("InsertEnter", {
-  group = cursorline_group,
-  callback = function()
-    vim.opt.cursorline = false
-  end,
-})
-
-vim.api.nvim_create_autocmd("InsertLeave", {
-  group = cursorline_group,
-  callback = function()
-    vim.opt.cursorline = true
-  end,
-})
+-- vim.api.nvim_create_autocmd("InsertEnter", {
+--   group = cursorline_group,
+--   callback = function()
+--     vim.opt.cursorline = false
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+--   group = cursorline_group,
+--   callback = function()
+--     vim.opt.cursorline = true
+--   end,
+-- })
 
 -- Keep folds open when opening files
 vim.opt.foldenable = true

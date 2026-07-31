@@ -9,9 +9,7 @@ delivery = "system"
 [ui]
 show_agent_labels_on_pane_borders = true
 
-# WSL mặc định ("auto") sẽ vẽ con trỏ của herdr -> luôn là block, nvim insert mode
-# không đổi được sang bar. Dùng con trỏ thật của WezTerm để DECSCUSR có tác dụng.
-host_cursor = "native"
+# host_cursor = "native"
 
 agent_panel_sort = "spaces"
 [experimental]

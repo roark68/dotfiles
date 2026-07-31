@@ -80,6 +80,9 @@ local servers = {
       },
     },
   },
+  -- taplo formats toml itself; conform has no toml formatter, so <leader>fm
+  -- falls back to the LSP.
+  taplo = {},
   lua_ls = {
     settings = {
       Lua = {
