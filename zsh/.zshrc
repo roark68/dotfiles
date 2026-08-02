@@ -88,6 +88,7 @@ alias tww='token-watch watch'
 alias twg='token-watch generate'
 
 alias cl='claude'
+alias hr='herdr'
 
 ds() {
   ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic \
