@@ -49,8 +49,18 @@ keymap.set("n", "<C-Left>", ":vertical resize -5<CR>")
 keymap.set("n", "<C-Right>", ":vertical resize +5<CR>")
 
 -- Vim Pack
-keymap.set("n", "<leader>pu", vim.pack.update, { desc = "Pack update" })
-keymap.set("n", "<leader>pc", fn.pack_clean, { desc = "Pack clean" })
+-- Lazy groups (see config/pack.lua) are absent from vim.pack.get() until triggered,
+-- so update/clean must pull them in first — otherwise update skips them and clean
+-- deletes them as "unused".
+local function with_all_packs(action)
+  return function()
+    pcall(vim.cmd, "PackAddAll")
+    action()
+  end
+end
+
+keymap.set("n", "<leader>pu", with_all_packs(vim.pack.update), { desc = "Pack update" })
+keymap.set("n", "<leader>pc", with_all_packs(fn.pack_clean), { desc = "Pack clean" })
 
 -- LSP
 keymap.set("n", "<leader>cl", "<cmd>checkhealth vim.lsp<cr>", { desc = "LSP Info" })

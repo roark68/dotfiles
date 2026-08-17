@@ -77,6 +77,7 @@ alias ocfe='cd ~/mantu/Candidates-Frontend/src/app/'
 alias ocbe='cd ~/mantu/Candidates/'
 alias oife='cd ~/mantu/IMP-Frontend/src/app/'
 alias ojbe='cd ~/mantu/JobOffers/'
+alias orfe='cd ~/mantu/Repply-Frontend/src/app/'
 
 # Token watch
 alias twud='token-watch use dev'

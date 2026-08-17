@@ -16,11 +16,7 @@ agent_panel_sort = "spaces"
 switch_ascii_input_source_in_prefix = true
 pane_history = false
 
-# Keybindings mirroring ~/.tmux.conf (roark/dotfiles).
-# Mapping: tmux window -> herdr tab, tmux session -> herdr workspace.
 [keys]
-# Prefix stays ctrl+b: herdr has no send-prefix action, so a backtick prefix
-# would swallow literal backticks typed inside a pane.
 prefix = "`"
 
 # --- session / app --------------------------------------------------------
@@ -60,13 +56,11 @@ last_pane = "prefix+semicolon"         # tmux: prefix+; last-pane
 cycle_pane_next = "prefix+tab"
 cycle_pane_previous = "prefix+shift+tab"
 
-# vim-tmux-navigator parity: ctrl+hjkl moves focus without the prefix.
-focus_pane_left = "ctrl+h"
-focus_pane_down = "ctrl+j"
-focus_pane_up = "ctrl+k"
-focus_pane_right = "ctrl+l"
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
 
-# tmux used repeatable prefix+hjkl to resize; herdr uses a resize mode instead.
 resize_mode = "prefix+i"
 
 # --- navigate mode (prefix+s / prefix+g) ----------------------------------
@@ -78,21 +72,16 @@ navigate_pane_left = "h"
 navigate_pane_right = "l"
 
 # --- custom commands ------------------------------------------------------
-# tmux: bind -r o split-window -h "nvim ~/mantu/Obsidian/Journal/$(date ...).md"
 [[keys.command]]
 key = "prefix+o"
 type = "pane"
 command = 'zsh -lc "nvim ~/mantu/Obsidian/Journal/$(date +%Y-%m-%d).md"'
 
-# tmux: bind -r v split-window -h -c "#{pane_current_path}" "zsh -c 'nvim; exec zsh'"
 [[keys.command]]
 key = "prefix+v"
 type = "pane"
 command = "zsh -c 'nvim; exec zsh'"
 
-# tally plugin panes. type = "shell": the plugin action opens/closes the pane
-# itself, so this only needs to fire the invoke and exit. Absolute path because a
-# detached shell command does not necessarily get ~/.local/bin on PATH.
 [[keys.command]]
 key = "prefix+t"
 type = "shell"
@@ -102,3 +91,28 @@ command = "/home/npham_mantu/.local/bin/herdr plugin action invoke tally.toggle-
 key = "prefix+shift+t"
 type = "shell"
 command = "/home/npham_mantu/.local/bin/herdr plugin action invoke tally.toggle-scratchpads"
+
+# --- vim-herdr-navigation -------------------------------------------------
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "vim-herdr-navigation.left"
+description = "navigate left (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "vim-herdr-navigation.down"
+description = "navigate down (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "vim-herdr-navigation.up"
+description = "navigate up (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "vim-herdr-navigation.right"
+description = "navigate right (vim/herdr)"

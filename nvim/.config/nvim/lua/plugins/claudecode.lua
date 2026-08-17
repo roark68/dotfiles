@@ -36,17 +36,14 @@ vim.api.nvim_create_autocmd("FileType", {
 -- vim-tmux-navigator's global terminal maps use `<C-W>:...<CR>` which leaks
 -- keys into floating terminals; buffer-local maps here win over them. Scoped to
 -- snacks/toggleterm terminals so fzf keeps <C-h> as backspace.
+-- Leaving terminal mode and replaying the key routes through the normal-mode
+-- maps in after/plugin/herdr_nav.lua, so an edge hop crosses into herdr panes.
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "snacks_terminal", "toggleterm" },
   callback = function(args)
-    for key, cmd in pairs({
-      ["<C-h>"] = "TmuxNavigateLeft",
-      ["<C-j>"] = "TmuxNavigateDown",
-      ["<C-k>"] = "TmuxNavigateUp",
-      ["<C-l>"] = "TmuxNavigateRight",
-    }) do
-      vim.keymap.set("t", key, "<C-\\><C-n><Cmd>" .. cmd .. "<CR>",
-        { buffer = args.buf, silent = true, desc = "Window nav (" .. cmd .. ")" })
+    for _, key in ipairs({ "<C-h>", "<C-j>", "<C-k>", "<C-l>" }) do
+      vim.keymap.set("t", key, "<C-\\><C-n>" .. key,
+        { buffer = args.buf, silent = true, remap = true, desc = "Window nav (" .. key .. ")" })
     end
   end,
 })
