@@ -54,7 +54,6 @@ alias lg="lazygit"
 alias vim="nvim"
 alias v="nvim"
 alias ls='eza -lh --group-directories-first --icons=auto'
-alias lsa='ls -a'
 alias ll='ls -a'
 alias lt='eza --tree --level=2 --long --icons --git'
 alias lta='lt -a'
@@ -67,7 +66,8 @@ alias ....='cd ../../..'
 alias sz="source ~/.zshrc"
 alias wz="nvim /mnt/c/Users/npham_mantu/.wezterm.lua"
 alias gn="gitnexus analyze --index-only --drop-embeddings"
-alias mt="node ~/mantu/hackathon/scripts/get-token.mjs"
+alias gdd="git diff develop"
+alias gdh="git diff HEAD"
 
 # Mantu repos
 alias ow='cd ~/mantu'
@@ -78,6 +78,7 @@ alias ocbe='cd ~/mantu/Candidates/'
 alias oife='cd ~/mantu/IMP-Frontend/src/app/'
 alias ojbe='cd ~/mantu/JobOffers/'
 alias orfe='cd ~/mantu/Repply-Frontend/src/app/'
+alias orac='cd ~/mantu/RecruitmentActivities.Components/'
 
 # Token watch
 alias twud='token-watch use dev'

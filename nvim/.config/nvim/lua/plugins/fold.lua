@@ -14,4 +14,5 @@ require("origami").setup({
     enabled = false,
     kinds = { "comment", "imports", "region" },
   },
+  foldKeymaps = { setup = false },
 })

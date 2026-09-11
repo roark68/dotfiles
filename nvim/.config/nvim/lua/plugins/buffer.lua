@@ -1,10 +1,8 @@
-local cp = require("catppuccin.palettes").get_palette("mocha")
-
 require("incline").setup({
   highlight = {
     groups = {
-      InclineNormal = { guibg = cp.blue, guifg = cp.mantle },
-      InclineNormalNC = { guibg = cp.surface1, guifg = cp.subtext0 },
+      InclineNormal = "Search",
+      InclineNormalNC = "Pmenu",
     },
   },
   window = { margin = { vertical = 0, horizontal = 0 } },

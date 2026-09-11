@@ -1,22 +1,13 @@
---------------- Keymaps ---------------
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
-local fn = package.loaded["config.functions"]
-if type(fn) ~= "table" then
-  package.loaded["config.functions"] = nil
-  fn = require("config.functions")
-end
+local fn = require("config.functions")
 
--- Save all
+-- Files and buffers
 keymap.set("n", "<leader>w", "<cmd>wa<cr>")
-
--- Remove buffer (keep the window/split open)
 keymap.set("n", "<leader>bd", fn.buf_delete, { desc = "Delete buffer, keep window" })
+keymap.set("n", "''", ":checktime<CR>", opts)
 
--- Select all
-keymap.set("n", "<C-a>", "ggVG")
-
--- Moving
+-- Motion and scrolling
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "L", "$")
@@ -29,29 +20,22 @@ keymap.set("n", "n", "nzzzv")
 keymap.set("n", "N", "Nzzzv")
 keymap.set("n", "<ESC>", "<cmd>nohl<cr>", opts)
 
--- Checktime
-keymap.set("n", "''", ":checktime<CR>", opts)
-
--- Do not yank when x/X & p/P
+-- Editing
+keymap.set("n", "<C-a>", "ggVG")
 keymap.set("n", "x", '"_x')
 keymap.set("n", "X", '"_X')
 keymap.set("x", "p", '"_dP')
 keymap.set("x", "P", '"_dP')
 
--- Split window
+-- Windows
 keymap.set("n", "sh", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
-
--- Resize screen
 keymap.set("n", "<C-Up>", ":resize -5<CR>")
 keymap.set("n", "<C-Down>", ":resize +5<CR>")
 keymap.set("n", "<C-Left>", ":vertical resize -5<CR>")
 keymap.set("n", "<C-Right>", ":vertical resize +5<CR>")
 
--- Vim Pack
--- Lazy groups (see config/pack.lua) are absent from vim.pack.get() until triggered,
--- so update/clean must pull them in first — otherwise update skips them and clean
--- deletes them as "unused".
+-- Plugin manager
 local function with_all_packs(action)
   return function()
     pcall(vim.cmd, "PackAddAll")
@@ -65,7 +49,7 @@ keymap.set("n", "<leader>pc", with_all_packs(fn.pack_clean), { desc = "Pack clea
 -- LSP
 keymap.set("n", "<leader>cl", "<cmd>checkhealth vim.lsp<cr>", { desc = "LSP Info" })
 
--- UI
+-- Toggles
 keymap.set("n", "<leader>uh", function()
   if not vim.lsp.inlay_hint then
     vim.notify("Inlay hint is not supported in this Neovim version", vim.log.levels.WARN)
@@ -79,4 +63,3 @@ end, { desc = "Toggle inlay hints" })
 keymap.set("n", "<leader>uw", function()
   vim.opt.wrap = not vim.opt.wrap:get()
 end, { desc = "Toggle wrap line" })
-

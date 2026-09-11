@@ -7,10 +7,8 @@ notify.setup({
   background_colour = "#000000"
 })
 
-
 vim.notify = notify
 
--- Dismiss all visible notifications
 vim.keymap.set("n", "<leader>un", function()
   notify.dismiss({ silent = true, pending = true })
 end, { desc = "Dismiss notifications" })

@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# wl-copy shim: stdin -> the Windows clipboard, on WSL2.
+#
+# Two backends, tried in this order:
+#   1. real wl-clipboard (/usr/bin/wl-copy) over WSLg's Wayland socket. WSLg
+#      bridges its clipboard to Windows, so this reaches the same clipboard as
+#      win32yank -- natively UTF-8, and with no Windows process to spawn.
+#   2. win32yank.exe. Needed when there is no WSLg session (WSLg disabled in
+#      .wslconfig, or a bare `ssh` into WSL): then backend 1 exits 1.
+# This file shadows /usr/bin/wl-copy on PATH, so it must never call `wl-copy`
+# by name -- only by absolute path.
+#
+# Line endings: WSLg hands the clipboard to Windows verbatim, so backend 1 would
+# leave LF where Windows programs expect CRLF, while win32yank -i --crlf
+# converts. We convert here instead and feed both backends the same bytes --
+# otherwise a paste into a Windows app would depend on which backend ran.
+#
+# Trimming: real wl-copy passes stdin through byte-for-byte. This shim strips
+# ONE trailing newline first, because the usual call is `some-cmd | wl-copy`
+# and that newline shows up on every paste. Use --no-trim for exact bytes.
+# Other wl-copy flags (--primary, --type, --trim-newline, ...) are accepted and
+# ignored: win32yank has no equivalent, so honouring them on one backend only
+# would be worse than honouring them on neither.
+set -euo pipefail
+
+REAL_WL_COPY=/usr/bin/wl-copy
+
+# A reachable WSLg compositor. wl-clipboard defaults to the socket named
+# "wayland-0" when WAYLAND_DISPLAY is unset, so mirror that default here.
+wayland_ok() {
+  [[ -x $REAL_WL_COPY ]] || return 1
+  local sock=${WAYLAND_DISPLAY:-wayland-0}
+  [[ $sock == /* ]] || sock=${XDG_RUNTIME_DIR:-}/$sock
+  [[ -S $sock ]]
+}
+
+# Both branches take CRLF text, so neither backend converts anything.
+sink() {
+  if wayland_ok; then
+    "$REAL_WL_COPY"
+  elif command -v win32yank.exe >/dev/null 2>&1; then
+    win32yank.exe -i
+  else
+    echo "wl-copy: no clipboard backend (no WSLg session, no win32yank.exe on PATH)" >&2
+    echo "wl-copy: run 'make win32yank' in the dotfiles repo to install the fallback" >&2
+    exit 1
+  fi
+}
+
+trim=1
+for arg in "$@"; do
+  case $arg in
+  --no-trim) trim=0 ;;
+  esac
+done
+
+# $(...) eats *every* trailing newline, so mark the end with a byte and drop it.
+# (Text only: a bash variable cannot hold NUL -- but neither clipboard backend
+# accepts NUL in a text/plain selection, so nothing is lost here.)
+payload=$(cat; printf x)
+payload=${payload%x}
+
+payload=${payload//$'\r\n'/$'\n'} # normalize first, so the trim below sees LF
+if ((trim)); then
+  payload=${payload%$'\n'} # exactly one, unlike $(...)
+fi
+payload=${payload//$'\n'/$'\r\n'} # what Windows programs expect
+
+printf '%s' "$payload" | sink

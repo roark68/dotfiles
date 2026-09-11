@@ -1,13 +1,5 @@
 local conform = require("conform")
 
-local ok_registry, registry = pcall(require, "mason-registry")
-if #vim.api.nvim_list_uis() > 0 and ok_registry and registry.has_package("prettier") then
-  local prettier = registry.get_package("prettier")
-  if not prettier:is_installed() then
-    prettier:install()
-  end
-end
-
 conform.setup({
   formatters_by_ft = {
     markdown = { "prettier" },

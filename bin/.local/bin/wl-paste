@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# wl-paste shim: the Windows clipboard -> stdout, on WSL2.
+# Backend order, PATH-shadowing and line-ending caveats: see wl-copy, same rules.
+# Here the conversion runs the other way -- Windows programs put CRLF on the
+# clipboard and WSLg passes it through raw, so backend 1 would hand back stray
+# CRs that win32yank -o --lf strips.
+#
+# Like real wl-paste, a trailing newline is appended unless -n, so `wl-paste` at
+# a prompt doesn't leave the cursor mid-line. That pairs with wl-copy's trimming,
+# so text survives a copy/paste round-trip unchanged.
+# Other wl-paste flags (--primary, --type, ...) are accepted and ignored.
+set -euo pipefail
+
+REAL_WL_PASTE=/usr/bin/wl-paste
+
+wayland_ok() {
+  [[ -x $REAL_WL_PASTE ]] || return 1
+  local sock=${WAYLAND_DISPLAY:-wayland-0}
+  [[ $sock == /* ]] || sock=${XDG_RUNTIME_DIR:-}/$sock
+  [[ -S $sock ]]
+}
+
+# Both branches yield raw clipboard bytes with no trailing newline added, so
+# this shim -- not the backend -- decides the trailing newline below.
+source_clipboard() {
+  if wayland_ok; then
+    "$REAL_WL_PASTE" -n
+  elif command -v win32yank.exe >/dev/null 2>&1; then
+    win32yank.exe -o
+  else
+    echo "wl-paste: no clipboard backend (no WSLg session, no win32yank.exe on PATH)" >&2
+    echo "wl-paste: run 'make win32yank' in the dotfiles repo to install the fallback" >&2
+    exit 1
+  fi
+}
+
+newline=1
+for arg in "$@"; do
+  case $arg in
+  -n | --no-newline) newline=0 ;;
+  esac
+done
+
+out=$(source_clipboard; printf x)
+out=${out%x}
+out=${out//$'\r\n'/$'\n'}
+if ((newline)) && [[ -n $out && $out != *$'\n' ]]; then
+  out+=$'\n'
+fi
+printf '%s' "$out"

@@ -9,7 +9,6 @@ end
 
 require("yanky").setup({
   ring = {
-    -- sqlite.lua needs a native sqlite3 DLL on Windows; shada works without it.
     storage = has_sqlite_clib() and "sqlite" or "shada",
   },
 })

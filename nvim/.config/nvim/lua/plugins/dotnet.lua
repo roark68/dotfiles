@@ -1,13 +1,3 @@
--- Dynamic SQL Server connection strings for local BE debugging (Needs / Candidates /
--- JobOffers). The Windows host lives at the WSL default-gateway IP, which can change
--- across `wsl --shutdown`. Compute it at startup and export ConnectionStrings__* into
--- the environment so easy-dotnet's `dotnet run` (http-dev profile) inherits them —
--- mirroring the run-needs / run-candidates / run-joboffers scripts without hardcoding
--- an IP in each repo's launchSettings.json.
---
--- Safe for integration tests: IntegrationTestWebAppFactory overrides
--- ConnectionStrings:SMARTAmaris in-memory (added after env) and calls UseSqlServer(...)
--- directly, so these env values are ignored by tests.
 do
   local ip = vim.fn.system({ "sh", "-c", "ip route show default | awk '{print $3}'" }):gsub("%s+", "")
   if ip ~= "" then
@@ -15,7 +5,7 @@ do
     local function cs(db)
       return string.format("Server=%s,1433;Database=%s;%s", ip, db, cred)
     end
-    -- Superset across the three BE repos; each app reads only the keys it needs.
+
     vim.env["ConnectionStrings__SMARTAmaris"] = cs("SMART_Amaris")
     vim.env["ConnectionStrings__ERPDocument"] = cs("ERP_Document")
     vim.env["ConnectionStrings__DocumentStaging"] = cs("Document_Staging")
@@ -60,7 +50,6 @@ end
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "oil",
   callback = function(args)
-    -- <leader>dn (not <leader>a) so the Claude Code <leader>a* prefix stays free.
     vim.keymap.set("n", "<leader>dn", function()
       local ok, oil = pcall(require, "oil")
       if not ok then

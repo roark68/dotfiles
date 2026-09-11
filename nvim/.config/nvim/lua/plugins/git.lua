@@ -1,9 +1,15 @@
 require("gitsigns").setup({
+  current_line_blame = true,
+  current_line_blame_opts = {
+    virt_text_pos = "eol",
+    delay = 300,
+    ignore_whitespace = true,
+  },
+  current_line_blame_formatter = "  <author>, <author_time:%R> · <summary>",
   on_attach = function(bufnr)
     local gs = require("gitsigns")
     local map = require("config.functions").bufmap(bufnr)
 
-    -- Navigation (respects diffmode with ]c/[c)
     map("n", "]h", function()
       if vim.wo.diff then
         vim.cmd.normal({ "]c", bang = true })
@@ -21,7 +27,6 @@ require("gitsigns").setup({
     map("n", "]H", function() gs.nav_hunk("last") end, "Last hunk")
     map("n", "[H", function() gs.nav_hunk("first") end, "First hunk")
 
-    -- Stage / reset
     map("n", "<leader>gs", gs.stage_hunk, "Stage hunk")
     map("n", "<leader>gr", gs.reset_hunk, "Reset hunk")
     map("x", "<leader>gs", function()
@@ -33,7 +38,6 @@ require("gitsigns").setup({
     map("n", "<leader>gS", gs.stage_buffer, "Stage buffer")
     map("n", "<leader>gR", gs.reset_buffer, "Reset buffer")
 
-    -- Inspect
     map("n", "<leader>gp", gs.preview_hunk, "Preview hunk (popup)")
     map("n", "<leader>gP", gs.preview_hunk_inline, "Preview hunk (inline)")
     map("n", "<leader>gw", gs.toggle_word_diff, "Toggle word diff")
@@ -43,7 +47,6 @@ require("gitsigns").setup({
     map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff against last commit")
     map("n", "<leader>gx", gs.toggle_deleted, "Toggle deleted")
 
-    -- Text object: a hunk (e.g. dih, vih)
     map({ "o", "x" }, "ih", gs.select_hunk, "Select hunk")
   end,
 })
