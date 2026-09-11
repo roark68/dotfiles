@@ -32,9 +32,9 @@ vim.pack.add({
   "https://github.com/chrisgrieser/nvim-origami",
   "https://github.com/gbprod/yanky.nvim",
 
-  -- Diagnostics and notifications
+  -- Diagnostics
   "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
-  "https://github.com/rcarriga/nvim-notify",
+  "https://github.com/j-hui/fidget.nvim",
 
   -- Git
   "https://github.com/lewis6991/gitsigns.nvim",
@@ -80,8 +80,8 @@ require("plugins.buffer")
 require("plugins.arrow")
 require("plugins.blink")
 require("plugins.diagnostics")
+require("plugins.fidget")
 require("plugins.dap")
-require("plugins.notify")
 require("plugins.indent")
 require("plugins.zen")
 require("plugins.dotnet")

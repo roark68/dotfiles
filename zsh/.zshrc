@@ -1,54 +1,43 @@
+# ==== Core ====
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
-# Oh My Zsh
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME=robbyrussell
-
-plugins=(git zsh-autosuggestions)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
 fi
 
+# ==== Oh My Zsh ====
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=robbyrussell
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+source $ZSH/oh-my-zsh.sh
+
 # ==== NodeJS ====
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # ==== Dotnet ====
 export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$HOME/.dotnet:$HOME/.dotnet/tools
-export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:/etc/ssl/certs"
-# Post-build swagger/NSwag targets boot the app; without this they default to
-# Production and fail on the "Replaced_in_CD" GroupDocs license placeholder.
+export PATH="$HOME/.aspire/bin:$PATH"
 export ASPNETCORE_ENVIRONMENT=Development
 
 # ==== Rust ====
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.cargo/env:$PATH"
 
+# ==== Mantu ====
 export AZURE_DEVOPS_ORG="MANTU"
+export PATH="$HOME/mantu/Obsidian/Scripts:$PATH"
+export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:$HOME/.local/share/mantu-ca:/etc/ssl/certs"
 
-# Init plugins
+# ==== Prompt & navigation ====
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
-# Added by get-aspire-cli.sh
-export PATH="$HOME/.aspire/bin:$PATH"
-
-# System alias
+# ==== Aliases: system ====
 alias lzd="lazydocker"
 alias lg="lazygit"
 alias vim="nvim"
@@ -63,13 +52,17 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+# ==== Aliases: dotfiles ====
 alias sz="source ~/.zshrc"
 alias wz="nvim /mnt/c/Users/npham_mantu/.wezterm.lua"
-alias gn="gitnexus analyze --index-only --drop-embeddings"
+
+# ==== Aliases: git ====
 alias gdd="git diff develop"
 alias gdh="git diff HEAD"
+alias gn="gitnexus analyze --index-only --drop-embeddings"
+alias noskip='git ls-files -v | grep '^S' | cut -c3- | tr '\n' '\0' | xargs -0 git update-index --no-skip-worktree'
 
-# Mantu repos
+# ==== Aliases: mantu repos ====
 alias ow='cd ~/mantu'
 alias onfe='cd ~/mantu/Needs-Frontend/src/app/'
 alias onbe='cd ~/mantu/Needs'
@@ -80,7 +73,7 @@ alias ojbe='cd ~/mantu/JobOffers/'
 alias orfe='cd ~/mantu/Repply-Frontend/src/app/'
 alias orac='cd ~/mantu/RecruitmentActivities.Components/'
 
-# Token watch
+# ==== Aliases: token-watch ====
 alias twud='token-watch use dev'
 alias twui='token-watch use inte'
 alias twuq='token-watch use qa'
@@ -89,6 +82,7 @@ alias twr='token-watch refresh'
 alias tww='token-watch watch'
 alias twg='token-watch generate'
 
+# ==== Agents ====
 alias cl='claude'
 alias hr='herdr'
 
@@ -98,19 +92,3 @@ ds() {
   ANTHROPIC_MODEL=deepseek-v4-pro \
   claude "$@"
 }
-
-# Mantu WSL dev: trust .NET dev cert + inteapi gateway cert (self-signed leaf, needs its own
-# CApath dir because update-ca-trust only exports CA certs) + launcher scripts
-export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:$HOME/.local/share/mantu-ca:/etc/ssl/certs"
-export PATH="$HOME/mantu/Obsidian/Scripts:$PATH"
-
-# git
-alias noskip='git ls-files -v | grep '^S' | cut -c3- | tr '\n' '\0' | xargs -0 git update-index --no-skip-worktree'
-
-# pnpm
-export PNPM_HOME="/home/npham_mantu/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
-# pnpm end
