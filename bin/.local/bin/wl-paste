@@ -8,7 +8,10 @@
 # Like real wl-paste, a trailing newline is appended unless -n, so `wl-paste` at
 # a prompt doesn't leave the cursor mid-line. That pairs with wl-copy's trimming,
 # so text survives a copy/paste round-trip unchanged.
-# Other wl-paste flags (--primary, --type, ...) are accepted and ignored.
+# Other wl-paste flags (--primary, ...) are accepted and ignored, except the
+# type-aware ones (-l/--list-types, -t/--type): those go straight to the real
+# binary. A caller naming a MIME type wants raw bytes, and the text path below
+# strips null bytes and rewrites CRLF, which corrupts an image on the clipboard.
 set -euo pipefail
 
 REAL_WL_PASTE=/usr/bin/wl-paste
@@ -38,6 +41,20 @@ newline=1
 for arg in "$@"; do
   case $arg in
   -n | --no-newline) newline=0 ;;
+  -l | --list-types | -t | --type | -t?* | --type=*)
+    # WSLg republishes a Windows clipboard bitmap as image/bmp only, which no
+    # API-backed tool (Claude Code's ctrl+v) accepts -- transcode on request.
+    if wayland_ok && [[ " $* " == *" image/png "* || " $* " == *"=image/png "* ]] &&
+      "$REAL_WL_PASTE" -l 2>/dev/null | grep -qx image/bmp &&
+      ! "$REAL_WL_PASTE" -l 2>/dev/null | grep -qx image/png &&
+      command -v magick >/dev/null 2>&1; then
+      "$REAL_WL_PASTE" -t image/bmp | magick bmp:- png:-
+      exit
+    fi
+    wayland_ok && exec "$REAL_WL_PASTE" "$@"
+    echo "wl-paste: $arg needs a WSLg session (win32yank fallback is text-only)" >&2
+    exit 1
+    ;;
   esac
 done
 
