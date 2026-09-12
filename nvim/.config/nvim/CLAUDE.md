@@ -20,6 +20,7 @@ Personal Neovim configuration. Runs on WSL2 (Linux) with the Windows clipboard. 
 - LSP servers each get a `lsp/<name>.lua` returning their config table. `lua/plugins/lsp.lua` globs that directory, feeds the names to `mason-lspconfig` (`automatic_enable = false`), and calls `vim.lsp.enable`. **Add a server = add one file to `lsp/`**, nothing else.
 - LSP keymaps are set in the `LspAttach` autocmd (buffer-local), preferring `fzf-lua` pickers when available.
 - Formatting is via `conform.nvim` (`lua/plugins/formatting.lua`, `prettier` for web/markdown/json); `<leader>fm` formats with LSP fallback.
+- Machine/work-specific setup (DB connection strings, per-solution dap attach targets) lives in `local/init.lua` — gitignored, loaded by the last line of `init.lua` if it exists. Nothing employer-specific belongs in the repo.
 - Indentation: 2-space, `expandtab` (see `options.lua`). Match the surrounding file.
 
 ## Adding a plugin

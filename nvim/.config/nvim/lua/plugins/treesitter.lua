@@ -4,7 +4,8 @@ require('nvim-treesitter').install {
   'javascript',
   'zig',
   'yaml',
-  'toml'
+  'toml',
+  'java'
 }
 
 vim.api.nvim_create_autocmd("FileType", {

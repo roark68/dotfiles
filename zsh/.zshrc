@@ -28,6 +28,9 @@ export ASPNETCORE_ENVIRONMENT=Development
 # ==== Rust ====
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# ==== Java ====
+export JAVA_HOME=/usr/lib/jvm/default
+
 # ==== Mantu ====
 export AZURE_DEVOPS_ORG="MANTU"
 export PATH="$HOME/mantu/Obsidian/Scripts:$PATH"

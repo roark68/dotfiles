@@ -86,4 +86,29 @@ function M.set_indent(size, expand)
   vim.b.undo_ftplugin = "setlocal tabstop< shiftwidth< softtabstop< expandtab<"
 end
 
+--- Resolve the pid of a running .NET process whose path contains `match`.
+--- For dap `processId`; projects wire their own targets in a local `.nvim.lua`.
+function M.dap_pid(match, label)
+  return function()
+    local utils = require("dap.utils")
+    label = label or match
+
+    local function is_target(proc)
+      return proc.name:find(match, 1, true) ~= nil
+          and proc.name:find("/bin/", 1, true) ~= nil
+          and proc.name:find("MSBuild", 1, true) == nil
+    end
+
+    local procs = utils.get_processes({ filter = is_target })
+    if #procs == 0 then
+      utils.notify(label .. " is not running", vim.log.levels.WARN)
+      return require("dap").ABORT
+    elseif #procs == 1 then
+      return procs[1].pid
+    end
+
+    return utils.pick_process({ filter = is_target, prompt = "Select " .. label .. " process: " })
+  end
+end
+
 return M

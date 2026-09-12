@@ -44,6 +44,9 @@ vim.pack.add({
 
   -- Language tools
   "https://github.com/GustavEikaas/easy-dotnet.nvim",
+  "https://github.com/nvim-java/nvim-java",
+  "https://github.com/MunifTanjim/nui.nvim",
+  "https://github.com/JavaHello/spring-boot.nvim",
   { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range("^9") },
 
   -- Markdown
@@ -85,4 +88,5 @@ require("plugins.indent")
 require("plugins.zen")
 require("plugins.dotnet")
 require("plugins.rust")
+require("plugins.java")
 require("plugins.obsidian")

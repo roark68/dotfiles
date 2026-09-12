@@ -1,19 +1,3 @@
-do
-  local ip = vim.fn.system({ "sh", "-c", "ip route show default | awk '{print $3}'" }):gsub("%s+", "")
-  if ip ~= "" then
-    local cred = "User Id=marketplace_dev;Password=ChangeMe123!;MultipleActiveResultSets=true;TrustServerCertificate=Yes;App=mantu-nvim-debug"
-    local function cs(db)
-      return string.format("Server=%s,1433;Database=%s;%s", ip, db, cred)
-    end
-
-    vim.env["ConnectionStrings__SMARTAmaris"] = cs("SMART_Amaris")
-    vim.env["ConnectionStrings__ERPDocument"] = cs("ERP_Document")
-    vim.env["ConnectionStrings__DocumentStaging"] = cs("Document_Staging")
-    vim.env["ConnectionStrings__CDN"] = cs("CDN")
-    vim.env["ConnectionStrings__ERP_CorporateFiles"] = cs("ERP_CorporateFiles")
-  end
-end
-
 local dotnet = require("easy-dotnet")
 
 if not vim.g._dotnet_workspace_edit_patch then

@@ -62,57 +62,6 @@ dap.adapters.coreclr = {
   args = { "--interpreter=vscode" },
 }
 
-local function aspire_pid(project_path, label)
-  return function()
-    local utils = require("dap.utils")
-
-    local function is_api(proc)
-      return proc.name:find(project_path, 1, true) ~= nil
-          and proc.name:find("/bin/", 1, true) ~= nil
-          and proc.name:find("MSBuild", 1, true) == nil
-    end
-
-    local procs = utils.get_processes({ filter = is_api })
-    if #procs == 0 then
-      utils.notify(label .. " is not running -- start the stack with run-gateway", vim.log.levels.WARN)
-      return dap.ABORT
-    elseif #procs == 1 then
-      return procs[1].pid
-    end
-
-    return utils.pick_process({ filter = is_api, prompt = "Select " .. label .. " process: " })
-  end
-end
-
-local cs_configs = dap.configurations.cs or {}
-for _, api in ipairs({
-  { label = "needs-api", path = "/Needs/src/Api.Server/" },
-  { label = "candidates-api", path = "/Candidates/src/Api.Server/" },
-  { label = "joboffers-api", path = "/JobOffers/src/Api.Server/" },
-}) do
-  table.insert(cs_configs, {
-    type = "coreclr",
-    name = "attach: " .. api.label .. " (Aspire)",
-    request = "attach",
-    processId = aspire_pid(api.path, api.label),
-  })
-end
-
-table.insert(cs_configs, {
-  type = "coreclr",
-  name = "attach: pick a .NET process",
-  request = "attach",
-  processId = function()
-    return require("dap.utils").pick_process({
-      filter = function(proc)
-        return proc.name:find("dotnet", 1, true) ~= nil or proc.name:find("Api.Server", 1, true) ~= nil
-      end,
-    })
-  end,
-})
-
-dap.configurations.cs = cs_configs
-
 local function map(lhs, rhs, desc)
   vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
 end
