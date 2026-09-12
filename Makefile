@@ -9,7 +9,7 @@ HOME_TARGET  := $(HOME)
 WIN_HOME     := /mnt/c/Users/npham_mantu
 
 # stow packages that target $HOME
-HOME_PKGS := nvim tmux zsh starship herdr bin
+HOME_PKGS := nvim tmux zsh starship bin
 
 STOW := stow --dir=$(DOTFILES)
 

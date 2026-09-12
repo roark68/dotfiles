@@ -1,5 +1,3 @@
-vim.g.tmux_navigator_no_mappings = 1
-
 vim.pack.add({
   -- File navigation
   "https://github.com/stevearc/oil.nvim",
@@ -88,5 +86,3 @@ require("plugins.zen")
 require("plugins.dotnet")
 require("plugins.rust")
 require("plugins.obsidian")
-require("plugins.render-markdown")
-require("plugins.markdown-preview")

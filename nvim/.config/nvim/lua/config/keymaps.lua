@@ -36,30 +36,9 @@ keymap.set("n", "<C-Left>", ":vertical resize -5<CR>")
 keymap.set("n", "<C-Right>", ":vertical resize +5<CR>")
 
 -- Plugin manager
-local function with_all_packs(action)
-  return function()
-    pcall(vim.cmd, "PackAddAll")
-    action()
-  end
-end
-
-keymap.set("n", "<leader>pu", with_all_packs(vim.pack.update), { desc = "Pack update" })
-keymap.set("n", "<leader>pc", with_all_packs(fn.pack_clean), { desc = "Pack clean" })
-
--- LSP
-keymap.set("n", "<leader>cl", "<cmd>checkhealth vim.lsp<cr>", { desc = "LSP Info" })
+keymap.set("n", "<leader>pu", fn.pack_update, { desc = "Pack update" })
+keymap.set("n", "<leader>pc", fn.pack_clean, { desc = "Pack clean" })
 
 -- Toggles
-keymap.set("n", "<leader>uh", function()
-  if not vim.lsp.inlay_hint then
-    vim.notify("Inlay hint is not supported in this Neovim version", vim.log.levels.WARN)
-    return
-  end
-
-  local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
-  vim.lsp.inlay_hint.enable(not enabled, { bufnr = 0 })
-end, { desc = "Toggle inlay hints" })
-
-keymap.set("n", "<leader>uw", function()
-  vim.opt.wrap = not vim.opt.wrap:get()
-end, { desc = "Toggle wrap line" })
+keymap.set("n", "<leader>uh", fn.toggle_inlay_hint, { desc = "Toggle inlay hints" })
+keymap.set("n", "<leader>uw", "<cmd>set wrap!<cr>", { desc = "Toggle wrap line" })

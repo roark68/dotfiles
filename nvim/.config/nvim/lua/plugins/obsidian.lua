@@ -1,92 +1,74 @@
-local obsidian = require("obsidian")
+-- obsidian.nvim
+local workspace = { name = "mantu", path = vim.fn.expand("~/mantu/Obsidian/") }
 
-if vim.g.obsidian_setup_done then
-  return
-end
-
-local workspaces = {
-  {
-    name = "mantu",
-    path = vim.fn.expand("~/mantu/Obsidian/"),
-  },
-}
-
-for _, workspace in ipairs(workspaces) do
-  vim.fn.mkdir(workspace.path, "p")
-end
+vim.fn.mkdir(workspace.path, "p")
 
 local function note_id(title)
-  if not title or title == "" then
-    return tostring(os.time())
-  end
-
-  local id = title:gsub("[\\/:*?\"<>|]", "-"):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+  local id = (title or ""):gsub('[\\/:*?"<>|]', "-"):gsub("%s+", " ")
+  id = vim.trim(id)
   return id ~= "" and id or tostring(os.time())
 end
 
-obsidian.setup({
+require("obsidian").setup({
   legacy_commands = false,
-  completion = {
-    create_new = true,
-    min_chars = 1,
-  },
-  picker = {
-    name = "fzf-lua",
-  },
-  workspaces = workspaces,
+  completion = { min_chars = 1 },
+  picker = { name = "fzf-lua" },
+  workspaces = { workspace },
   notes_subdir = "Inbox",
   new_notes_location = "notes_subdir",
   note_id_func = note_id,
   daily_notes = {
     folder = "Journal",
-    date_format = "YYYY-MM-DD",
     alias_format = "MMMM D, YYYY",
     default_tags = { "daily" },
     workdays_only = false,
   },
-  footer = {
-    enabled = false,
-  },
-  ui = {
-    enable = false,
-    ignore_conceal_warn = false,
-    update_debounce = 200,
-    max_file_length = 5000,
-  },
+  footer = { enabled = false },
+  ui = { enable = false },
 })
 
-vim.g.obsidian_setup_done = true
+-- render-markdown.nvim
+require("render-markdown").setup({
+  completions = {
+    lsp = { enabled = true },
+    blink = { enabled = true },
+  },
+  win_options = { conceallevel = { rendered = 2 } },
+})
 
-local function nmap(lhs, rhs, desc)
-  vim.keymap.set("n", lhs, rhs, { desc = "Obsidian: " .. desc })
+-- markdown-preview.nvim
+vim.g.mkdp_theme = "dark"
+vim.g.mkdp_echo_preview_url = 1
+vim.g.mkdp_browser = vim.fn.expand("~/.local/bin/mkdp-zen")
+
+-- Keymaps
+local function map(mode, lhs, rhs, desc)
+  vim.keymap.set(mode, lhs, rhs, { desc = "Obsidian: " .. desc })
 end
 
-local function xmap(lhs, rhs, desc)
-  vim.keymap.set("x", lhs, rhs, { desc = "Obsidian: " .. desc })
-end
+map("n", ";?", "<cmd>Obsidian<cr>", "Command menu")
 
-nmap(";?", "<cmd>Obsidian<cr>", "Command menu")
+map("n", ";n", "<cmd>Obsidian new<cr>", "New note in Inbox")
+map("n", ";q", "<cmd>Obsidian quick_switch<cr>", "Quick switch note")
+map("n", ";s", "<cmd>Obsidian search<cr>", "Search notes")
+map("n", ";g", "<cmd>Obsidian tags<cr>", "Search tags")
+map("n", ";u", "<cmd>Obsidian unique_note<cr>", "New unique note")
 
-nmap(";n", "<cmd>Obsidian new<cr>", "New note in Inbox")
-nmap(";q", "<cmd>Obsidian quick_switch<cr>", "Quick switch note")
-nmap(";s", "<cmd>Obsidian search<cr>", "Search notes")
-nmap(";g", "<cmd>Obsidian tags<cr>", "Search tags")
-nmap(";u", "<cmd>Obsidian unique_note<cr>", "New unique note")
+map("n", ";t", "<cmd>Obsidian today<cr>", "Today journal")
+map("n", ";y", "<cmd>Obsidian yesterday<cr>", "Yesterday journal")
+map("n", ";m", "<cmd>Obsidian tomorrow<cr>", "Tomorrow journal")
+map("n", ";d", "<cmd>Obsidian dailies<cr>", "Daily notes picker")
 
-nmap(";t", "<cmd>Obsidian today<cr>", "Today journal")
-nmap(";y", "<cmd>Obsidian yesterday<cr>", "Yesterday journal")
-nmap(";m", "<cmd>Obsidian tomorrow<cr>", "Tomorrow journal")
-nmap(";d", "<cmd>Obsidian dailies<cr>", "Daily notes picker")
+map("n", ";o", "<cmd>Obsidian open<cr>", "Open in Obsidian app")
+map("n", ";b", "<cmd>Obsidian backlinks<cr>", "Backlinks")
+map("n", ";l", "<cmd>Obsidian links<cr>", "Links in note")
+map("n", ";f", "<cmd>Obsidian follow_link<cr>", "Follow link")
+map("n", ";r", "<cmd>Obsidian rename<cr>", "Rename note")
+map("n", ";c", "<cmd>Obsidian toggle_checkbox<cr>", "Toggle checkbox")
+map("n", ";i", "<cmd>Obsidian paste_img<cr>", "Paste copied image")
+map("n", ";h", "<cmd>Obsidian toc<cr>", "Table of contents")
+map("n", ";p", "<cmd>MarkdownPreviewToggle<cr>", "Toggle browser preview (Zen)")
 
-nmap(";o", "<cmd>Obsidian open<cr>", "Open in Obsidian app")
-nmap(";b", "<cmd>Obsidian backlinks<cr>", "Backlinks")
-nmap(";l", "<cmd>Obsidian links<cr>", "Links in note")
-nmap(";f", "<cmd>Obsidian follow_link<cr>", "Follow link")
-nmap(";r", "<cmd>Obsidian rename<cr>", "Rename note")
-nmap(";c", "<cmd>Obsidian toggle_checkbox<cr>", "Toggle checkbox")
-nmap(";i", "<cmd>Obsidian paste_img<cr>", "Paste copied image")
-nmap(";h", "<cmd>Obsidian toc<cr>", "Table of contents")
-
-xmap(";l", ":Obsidian link<cr>", "Link selection")
-xmap(";n", ":Obsidian link_new<cr>", "New linked note from selection")
-xmap(";e", ":Obsidian extract_note<cr>", "Extract selection to note")
+map("x", ";l", ":Obsidian link<cr>", "Link selection")
+map("x", ";n", ":Obsidian link_new<cr>", "New linked note from selection")
+map("x", ";e", ":Obsidian extract_note<cr>", "Extract selection to note")

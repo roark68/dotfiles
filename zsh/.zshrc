@@ -84,7 +84,6 @@ alias twg='token-watch generate'
 
 # ==== Agents ====
 alias cl='claude'
-alias hr='herdr'
 
 ds() {
   ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic \

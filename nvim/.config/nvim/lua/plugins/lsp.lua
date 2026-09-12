@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     local fzf = require("fzf-lua")
     local map = require("config.functions").bufmap(args.buf)
+    local code = require("tiny-code-action");
 
     local function goto_picker(fn)
       return function()
@@ -30,7 +31,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "gI", goto_picker(fzf.lsp_implementations), "Goto Implementation")
     map("n", "gy", goto_picker(fzf.lsp_typedefs), "Goto Type Definition")
 
-    map({ "n", "x" }, "<leader>ca", require("tiny-code-action").code_action, "Code Action")
+    map({ "n", "x" }, "<leader>ca", code.code_action, "Code Action")
     map("n", "<leader>ss", fzf.lsp_document_symbols, "Document Symbols")
 
     map("n", "gD", vim.lsp.buf.declaration, "Goto Declaration")

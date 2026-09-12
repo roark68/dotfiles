@@ -2,12 +2,6 @@
 *.log
 .nvimlog
 
-# herdr runtime state — lives in ~/.config/herdr but is NOT config.
-# Only config.toml is tracked; sockets, session/plugin state and installed
-# plugin trees (which contain tokens) stay machine-local.
-herdr/.config/herdr/*
-!herdr/.config/herdr/config.toml
-
 # Secrets — never commit. Real secrets live in $HOME/.zsh_secrets (outside repo).
 .zsh_secrets
 *.secret
