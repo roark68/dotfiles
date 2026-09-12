@@ -34,7 +34,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>ss", fzf.lsp_document_symbols, "Document Symbols")
 
     map("n", "gD", vim.lsp.buf.declaration, "Goto Declaration")
-    map("n", "K", vim.lsp.buf.hover, "Hover")
     map({ "n", "x" }, "<leader>cc", vim.lsp.codelens.run, "Run Codelens")
     map("n", "<leader>cC", vim.lsp.codelens.refresh, "Refresh Codelens")
     map("n", "<leader>cr", vim.lsp.buf.rename, "Rename Symbol")
@@ -42,11 +41,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map({ "n", "x" }, "<leader>fm", function()
       require("conform").format({ async = true, lsp_format = "fallback" })
     end, "Format Buffer")
-
-    if client and client:supports_method("textDocument/signatureHelp") then
-      map("n", "gK", vim.lsp.buf.signature_help, "Signature Help")
-      map("i", "<C-k>", vim.lsp.buf.signature_help, "Signature Help")
-    end
 
     if client and vim.lsp.inlay_hint and client:supports_method("textDocument/inlayHint") then
       vim.lsp.inlay_hint.enable(false, { bufnr = args.buf })

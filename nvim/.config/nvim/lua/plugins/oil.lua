@@ -22,7 +22,10 @@ require("oil").setup({
     padding = 2,
     max_width = 0.5,
     max_height = 0.8,
-    preview_split = "below",
+    preview_split = "right",
+  },
+  win_options = {
+    signcolumn = "yes:2",
   },
   preview_win = {
     update_on_cursor_moved = true,
@@ -40,5 +43,8 @@ require("oil").setup({
     ["<C-p>"] = "actions.preview",
   },
 })
+
+require("oil-git-status").setup()
+
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

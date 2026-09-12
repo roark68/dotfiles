@@ -3,6 +3,7 @@ vim.g.tmux_navigator_no_mappings = 1
 vim.pack.add({
   -- File navigation
   "https://github.com/stevearc/oil.nvim",
+  "https://github.com/refractalize/oil-git-status.nvim",
   "https://github.com/ibhagwan/fzf-lua",
   "https://github.com/otavioschwanck/arrow.nvim",
 

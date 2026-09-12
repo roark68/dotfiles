@@ -70,3 +70,13 @@ vim.api.nvim_create_user_command("Indent", function(opts)
   vim.opt.softtabstop = tabsize
   vim.opt.shiftwidth = tabsize
 end, { nargs = 1 })
+
+require("vim._core.ui2").enable({})
+
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "TermClose", "TermLeave" }, {
+  callback = function()
+    if vim.fn.mode() ~= "c" and vim.bo.buftype == "" then
+      vim.cmd.checktime()
+    end
+  end,
+})

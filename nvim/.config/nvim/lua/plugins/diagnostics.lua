@@ -85,7 +85,7 @@ vim.diagnostic.config({
   },
 })
 
-vim.keymap.set("n", "<leader>xc", function()
+vim.keymap.set("n", "<leader>ec", function()
   local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
   if #diagnostics > 0 then
     local message = diagnostics[1].message
@@ -96,10 +96,10 @@ vim.keymap.set("n", "<leader>xc", function()
   end
 end, { desc = "Copy diagnostic message" })
 
-vim.keymap.set("n", "<leader>xf", vim.diagnostic.open_float, { desc = "Show diagnostic float" })
-vim.keymap.set("n", "<leader>xn", function()
+vim.keymap.set("n", "<leader>ef", vim.diagnostic.open_float, { desc = "Show diagnostic float" })
+vim.keymap.set("n", "<leader>en", function()
   vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
 end, { desc = "Next error" })
-vim.keymap.set("n", "<leader>xp", function()
+vim.keymap.set("n", "<leader>ep", function()
   vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
 end, { desc = "Prev error" })
