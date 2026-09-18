@@ -49,6 +49,6 @@ vim.api.nvim_create_autocmd("FileType", {
       end
 
       create_dotnet_item(target_dir)
-    end, { buffer = args.buf, desc = "Create .NET item from template" })
+    end, { buffer = args.buf, desc = "New .NET item" })
   end,
 })

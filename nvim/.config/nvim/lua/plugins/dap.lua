@@ -75,7 +75,7 @@ map("<S-F5>", function()
   else
     dap.terminate()
   end
-end, "Debug: stop (detach when attached)")
+end, "Debug: stop/detach")
 map("<C-F5>", dap.restart, "Debug: restart")
 map("<F6>", dap.pause, "Debug: pause")
 map("<F9>", dap.toggle_breakpoint, "Debug: toggle breakpoint")
@@ -94,23 +94,23 @@ map("<leader>da", function()
   }, function(choice)
     if choice then dap.run(choice) end
   end)
-end, "Debug: attach to a running .NET API")
+end, "Debug: attach .NET API")
 
 map("<leader>dB", function()
   dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-end, "Debug: conditional breakpoint")
+end, "Debug: cond breakpoint")
 
 local mapV2, opts = vim.keymap.set, { noremap = true, silent = true }
 
 mapV2("n", "<leader>du", function() dapui.toggle() end, { noremap = true, silent = true, desc = "Toggle DAP UI" })
 
 mapV2({ "n", "v" }, "<leader>dw", function() require("dapui").eval(nil, { enter = true }) end,
-  { noremap = true, silent = true, desc = "Add word under cursor to Watches" })
+  { noremap = true, silent = true, desc = "Add word to watches" })
 
 mapV2({ "n", "v" }, "Q", function() require("dapui").eval() end,
   {
     noremap = true,
     silent = true,
     desc =
-    "Hover/eval a single value (opens a tiny window instead of expanding the full object) "
+    "Eval value (popup)"
   })

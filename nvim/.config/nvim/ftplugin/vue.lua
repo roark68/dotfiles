@@ -18,9 +18,7 @@ elseif has_file("bun.lock") or has_file("bun.lockb") then
 end
 
 local function run_script(script)
-  vim.cmd("botright split")
-  vim.fn.termopen(runner .. " " .. script, { cwd = root or vim.fn.getcwd() })
-  vim.cmd("startinsert")
+  require("config.functions").run_term(runner .. " " .. script, root or vim.fn.getcwd())
 end
 
 local map = require("config.functions").bufmap()

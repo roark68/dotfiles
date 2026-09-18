@@ -86,6 +86,16 @@ function M.set_indent(size, expand)
   vim.b.undo_ftplugin = "setlocal tabstop< shiftwidth< softtabstop< expandtab<"
 end
 
+--- Run `cmd` in a bottom split terminal, closing the previous one first.
+function M.run_term(cmd, cwd)
+  if M.term and vim.api.nvim_buf_is_valid(M.term) then
+    vim.api.nvim_buf_delete(M.term, { force = true })
+  end
+  vim.cmd("botright new")
+  vim.fn.jobstart(cmd, { term = true, cwd = cwd })
+  M.term = vim.api.nvim_get_current_buf()
+end
+
 --- Resolve the pid of a running .NET process whose path contains `match`.
 --- For dap `processId`; projects wire their own targets in a local `.nvim.lua`.
 function M.dap_pid(match, label)

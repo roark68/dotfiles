@@ -8,11 +8,11 @@ vim.pack.add({
   -- Appearance
   { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
   "https://github.com/neanias/everforest-nvim",
-  "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/nvim-lualine/lualine.nvim",
   "https://github.com/b0o/incline.nvim",
   "https://github.com/lukas-reineke/indent-blankline.nvim",
   "https://github.com/folke/zen-mode.nvim",
+  "https://github.com/folke/which-key.nvim",
   "https://github.com/sphamba/smear-cursor.nvim",
 
   -- LSP, completion, and formatting
@@ -30,6 +30,7 @@ vim.pack.add({
   "https://github.com/nvim-mini/mini.nvim",
   "https://github.com/chrisgrieser/nvim-origami",
   "https://github.com/gbprod/yanky.nvim",
+  "https://github.com/abecodes/tabout.nvim",
 
   -- Diagnostics
   "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
@@ -80,6 +81,7 @@ require("plugins.fzf")
 require("plugins.lualine")
 require("plugins.buffer")
 require("plugins.arrow")
+require("plugins.tabout")
 require("plugins.blink")
 require("plugins.diagnostics")
 require("plugins.fidget")
@@ -90,3 +92,4 @@ require("plugins.dotnet")
 require("plugins.rust")
 require("plugins.java")
 require("plugins.obsidian")
+require("plugins.which-key")
