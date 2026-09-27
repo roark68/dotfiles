@@ -29,7 +29,6 @@ vim.pack.add({
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/nvim-mini/mini.nvim",
   "https://github.com/chrisgrieser/nvim-origami",
-  "https://github.com/gbprod/yanky.nvim",
   "https://github.com/abecodes/tabout.nvim",
 
   -- Diagnostics
@@ -61,13 +60,11 @@ vim.pack.add({
   -- Developer utilities and libraries
   "https://github.com/folke/snacks.nvim",
   "https://github.com/nvim-lua/plenary.nvim",
-  "https://github.com/kkharji/sqlite.lua",
   "https://github.com/nvim-neotest/nvim-nio",
 })
 
 require("plugins.mini")
 require("plugins.snacks")
-require("plugins.yanky")
 require("plugins.lsp")
 require("plugins.treesitter")
 require("plugins.colorscheme")

@@ -27,6 +27,7 @@ export ASPNETCORE_ENVIRONMENT=Development
 
 # ==== Rust ====
 export PATH="$HOME/.cargo/bin:$PATH"
+alias cr="cargo run"
 
 # ==== Java ====
 export JAVA_HOME=/usr/lib/jvm/default

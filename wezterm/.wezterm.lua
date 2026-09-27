@@ -55,6 +55,11 @@ config.enable_tab_bar = false
 -- keys
 config.keys = {
   {
+    key = "F11",
+    mods = "",
+    action = wezterm.action.ToggleFullScreen,
+  },
+  {
     key = "0",
     mods = "CTRL|SHIFT",
     action = wezterm.action.ResetFontSize,
