@@ -14,7 +14,7 @@ dotfiles/
 ├── zsh/
 │   ├── .zshrc                # -> ~/.zshrc (just sources ~/.config/zsh/*)
 │   ├── .zshenv               # -> ~/.zshenv
-│   └── .config/zsh/          # -> ~/.config/zsh (env, omz, prompt, keybinds, aliases, functions)
+│   └── .config/zsh/          # -> ~/.config/zsh (env, omz, prompt, aliases, functions)
 ├── starship/
 │   └── .config/starship.toml # -> ~/.config/starship.toml
 ├── bin/
