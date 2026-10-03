@@ -5,7 +5,7 @@ require("oil").setup({
   skip_confirm_for_simple_edits = true,
   view_options = {
     show_hidden = true,
-    is_always_hidden = function(name, _)
+    is_always_hidden = function(name, bufnr)
       return name == "node_modules"
           or name == ".next"
           or name == "dist"
@@ -14,7 +14,7 @@ require("oil").setup({
           or name == ".vscode"
           or name == ".idea"
           or name == "obj"
-          or name == "bin"
+          or (name == "bin" and vim.fn.glob(require("oil").get_current_dir(bufnr) .. "*.*proj") ~= "")
           or name == "build"
     end,
   },

@@ -1,7 +1,7 @@
 local fzf = require("fzf-lua")
 local actions = require("fzf-lua.actions")
 
-local fd_opts = [[--color=never --type f --type l --exclude .git --exclude bin --exclude obj --exclude target --exclude node_modules]]
+local fd_opts = [[--color=never --type f --type l --exclude .git --exclude obj --exclude target --exclude node_modules]]
 
 fzf.setup({
   fzf_opts = {
@@ -22,8 +22,8 @@ fzf.setup({
   },
   files = {
     cwd_prompt = false,
-    find_opts = [[-type f -not -path '*/.git/*' -not -path '*/bin/*' -not -path '*/obj/*' -not -path '*/target/*' -not -path '*/node_modules/*']],
-    rg_opts = [[--color=never --files -g "!.git" -g "!bin" -g "!obj" -g "!target" -g "!node_modules"]],
+    find_opts = [[-type f -not -path '*/.git/*' -not -path '*/obj/*' -not -path '*/target/*' -not -path '*/node_modules/*']],
+    rg_opts = [[--color=never --files -g "!.git" -g "!obj" -g "!target" -g "!node_modules"]],
     cmd = "fd " .. fd_opts,
     fd_opts = fd_opts,
     actions = {
@@ -32,7 +32,7 @@ fzf.setup({
     },
   },
   grep = {
-    rg_opts = [[--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob "!**/bin/**" --glob "!**/obj/**" --glob "!**/target/**" --glob "!**/node_modules/**" -e]],
+    rg_opts = [[--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob "!**/obj/**" --glob "!**/target/**" --glob "!**/node_modules/**" -e]],
     actions = {
       ["alt-i"] = { actions.toggle_ignore },
       ["alt-o"] = { actions.toggle_hidden },

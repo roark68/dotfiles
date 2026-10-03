@@ -19,6 +19,7 @@ vim.pack.add({
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/mason-org/mason.nvim",
   "https://github.com/mason-org/mason-lspconfig.nvim",
+  "https://github.com/b0o/SchemaStore.nvim",
   "https://github.com/stevearc/conform.nvim",
   "https://github.com/rachartier/tiny-code-action.nvim",
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },

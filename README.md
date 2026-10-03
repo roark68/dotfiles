@@ -12,8 +12,9 @@ dotfiles/
 ├── tmux/
 │   └── .tmux.conf            # -> ~/.tmux.conf
 ├── zsh/
-│   ├── .zshrc                # -> ~/.zshrc
-│   └── .zshenv               # -> ~/.zshenv
+│   ├── .zshrc                # -> ~/.zshrc (just sources ~/.config/zsh/*)
+│   ├── .zshenv               # -> ~/.zshenv
+│   └── .config/zsh/          # -> ~/.config/zsh (env, omz, prompt, keybinds, aliases, functions)
 ├── starship/
 │   └── .config/starship.toml # -> ~/.config/starship.toml
 ├── bin/
