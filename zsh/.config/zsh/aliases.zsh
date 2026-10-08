@@ -1,6 +1,7 @@
 # ==== System ====
 alias lzd="lazydocker"
 alias lg="lazygit"
+alias b="bat"
 alias vim="nvim"
 alias v="nvim"
 alias ls='eza -lh --group-directories-first --icons=auto'
@@ -17,10 +18,10 @@ alias cr="cargo run"
 # ==== Dotfiles ====
 alias sz="source ~/.zshrc"
 alias wz="nvim /mnt/c/Users/npham_mantu/.wezterm.lua"
+alias gl="nvim /mnt/c/Users/npham_mantu/.glzr/glazewm/config.yaml"
 
 # ==== Git ====
-alias gdd="git diff develop"
-alias gdh="git diff HEAD"
+alias git="lgtm"
 alias gn="gitnexus analyze --index-only --drop-embeddings"
 alias noskip='git ls-files -v | grep '^S' | cut -c3- | tr '\n' '\0' | xargs -0 git update-index --no-skip-worktree'
 

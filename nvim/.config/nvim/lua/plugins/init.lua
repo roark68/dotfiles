@@ -48,7 +48,7 @@ vim.pack.add({
   "https://github.com/nvim-java/nvim-java",
   "https://github.com/MunifTanjim/nui.nvim",
   "https://github.com/JavaHello/spring-boot.nvim",
-  { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range("^9") },
+  -- { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range("^9") },
 
   -- Markdown
   "https://github.com/obsidian-nvim/obsidian.nvim",
@@ -87,7 +87,7 @@ require("plugins.dap")
 require("plugins.indent")
 require("plugins.zen")
 require("plugins.dotnet")
-require("plugins.rust")
+-- require("plugins.rust")
 require("plugins.java")
 require("plugins.obsidian")
 require("plugins.which-key")

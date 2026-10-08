@@ -13,11 +13,11 @@ map("n", "<leader>rt", cargo("test"), "Rust test")
 map("n", "<leader>rc", cargo("check"), "Rust check")
 map("n", "<leader>rb", cargo("build"), "Rust build")
 
-local group = vim.api.nvim_create_augroup("RustFormatOnSave", { clear = false })
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = group,
-  buffer = 0,
-  callback = function()
-    vim.lsp.buf.format({ async = false })
-  end,
-})
+-- local group = vim.api.nvim_create_augroup("RustFormatOnSave", { clear = false })
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   group = group,
+--   buffer = 0,
+--   callback = function()
+--     vim.lsp.buf.format({ async = false })
+--   end,
+-- })

@@ -36,10 +36,12 @@ wayland_ok() {
 
 # Both branches take CRLF text, so neither backend converts anything.
 sink() {
-  if wayland_ok; then
-    "$REAL_WL_COPY"
-  elif command -v win32yank.exe >/dev/null 2>&1; then
+  # win32yank first: WSLg's bridge to Windows can silently die (after sleep),
+  # while the socket still exists and real wl-copy still exits 0.
+  if command -v win32yank.exe >/dev/null 2>&1; then
     win32yank.exe -i
+  elif wayland_ok; then
+    "$REAL_WL_COPY"
   else
     echo "wl-copy: no clipboard backend (no WSLg session, no win32yank.exe on PATH)" >&2
     echo "wl-copy: run 'make win32yank' in the dotfiles repo to install the fallback" >&2
