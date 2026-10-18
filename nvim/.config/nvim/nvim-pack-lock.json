@@ -110,7 +110,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "obsidian.nvim": {
-      "rev": "ab794e1774c4cfd84f02b37720a92e38ea4c053d",
+      "rev": "9b405f0d65ca191fb36504522d3a15884f53bd44",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
     "oil-git-status.nvim": {
