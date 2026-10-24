@@ -8,3 +8,6 @@
 *secrets*
 .env
 .env.*
+
+# Neovim vim.pack lockfile
+nvim-pack-lock.json
