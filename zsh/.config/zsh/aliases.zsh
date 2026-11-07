@@ -22,6 +22,7 @@ alias gl="nvim /mnt/c/Users/npham_mantu/.glzr/glazewm/config.yaml"
 
 # ==== Git ====
 alias git="lgtm"
+alias gdd="git diff develop"
 alias gn="gitnexus analyze --index-only --drop-embeddings"
 alias noskip='git ls-files -v | grep '^S' | cut -c3- | tr '\n' '\0' | xargs -0 git update-index --no-skip-worktree'
 
