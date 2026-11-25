@@ -27,5 +27,5 @@ export JAVA_HOME=/usr/lib/jvm/default
 
 # ==== Mantu ====
 export AZURE_DEVOPS_ORG="MANTU"
-export PATH="$HOME/mantu/Obsidian/Scripts:$PATH"
+export PATH="$HOME/mantu/Scripts:$PATH"
 export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust:$HOME/.local/share/mantu-ca:/etc/ssl/certs"
