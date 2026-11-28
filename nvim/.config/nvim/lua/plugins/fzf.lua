@@ -55,6 +55,7 @@ vim.keymap.set("n", "<leader>fb", function()
 end, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>fg", fzf.git_files, { desc = "Find git files" })
 vim.keymap.set("n", "<leader>fr", fzf.oldfiles, { desc = "Recent files" })
+vim.keymap.set("n", "<leader>gf", fzf.git_status, { desc = "Changed files" })
 
 vim.keymap.set("n", "<leader>/", fzf.live_grep, { desc = "Grep (root)" })
 vim.keymap.set("n", "<leader>sw", fzf.grep_cword, { desc = "Word under cursor" })

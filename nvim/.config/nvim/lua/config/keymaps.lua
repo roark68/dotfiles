@@ -43,6 +43,7 @@ keymap.set("n", "<leader>pc", fn.pack_clean, { desc = "Pack clean" })
 -- Toggles
 keymap.set("n", "<leader>uh", fn.toggle_inlay_hint, { desc = "Toggle inlay hints" })
 keymap.set("n", "<leader>uw", "<cmd>set wrap!<cr>", { desc = "Toggle wrap line" })
+keymap.set("n", "<leader>ur", "<cmd>set relativenumber!<cr>", { desc = "Toggle relative number" })
 
 -- Quit confirm
 for _, c in ipairs({ "q", "qa", "wqa" }) do

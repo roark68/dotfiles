@@ -46,7 +46,7 @@ vim.opt.foldlevelstart = 99
 local function win32yank_paste()
   local res = vim.system({ "win32yank.exe", "-o", "--lf" }, { text = true }):wait()
   local out = res.code == 0 and res.stdout or ""
-  return vim.split((out:gsub("\n$", "")), "\n")
+  return vim.split(out, "\n")
 end
 
 vim.g.clipboard = {

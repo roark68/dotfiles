@@ -11,6 +11,10 @@ require("snacks").setup({
   },
 })
 
+vim.keymap.set("n", "<leader>E", function()
+  require("snacks").explorer()
+end, { desc = "File explorer" })
+
 vim.keymap.set("n", "<leader>.", function()
   require("snacks").scratch()
 end, { desc = "Toggle scratch buffer" })
